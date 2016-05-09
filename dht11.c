@@ -1,139 +1,124 @@
-/*
-File: dht11.c
-Description: DHT11 library
-Author: Adam Orcholski, tath@o2.pl, www.tath.eu
-Log (day/month/year):
-- (07.04.2013) Initial
-- (19.07.2015) Refactored
-Note:
- - refer to official documentation to understand what is happening here
-*/
-#include <dht11.h>
+#include "dht11.h"
 
-/* Public function definitions */
-void DHT11_Init(void)
-{
-    CRITICAL_SECTION_INIT;
-    DELAY_INIT;
+int DHT11_init(struct DHT11_Dev* dev, GPIO_TypeDef* port, uint16_t pin) {
+	TIM_TimeBaseInitTypeDef TIM_TimBaseStructure;
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	dev->port = port;
+	dev->pin = pin;
+
+	//Initialise TIMER2
+	TIM_TimBaseStructure.TIM_Period = 84000000 - 1;
+	TIM_TimBaseStructure.TIM_Prescaler = 84;
+	TIM_TimBaseStructure.TIM_ClockDivision = 0;
+	TIM_TimBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseInit(TIM2, &TIM_TimBaseStructure);
+	TIM_Cmd(TIM2, ENABLE);
+
+	//Initialise GPIO DHT11
+	GPIO_InitStructure.GPIO_Pin = dev->pin;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(dev->port, &GPIO_InitStructure);
+
+	return 0;
 }
 
-void DHT11_Denit(void)
-{
-    DELAY_DEINIT;
-    CRITICAL_SECTION_DEINIT;
-}
+int DHT11_read(struct DHT11_Dev* dev) {
 
-DHT11_ERROR_CODE_t DHT11_Read(uint8_t * const pData)
-{
-    int i = 0;
-    int j = 0;
-    DHT11_ERROR_CODE_t errorCode = DHT11_OK;
-    
-    #ifdef ENABLE_TIMEOUTS
-    int timeout = TIMEOUT_VALUE;
-    #endif
+	//Initialisation
+	uint8_t i, j, temp;
+	uint8_t data[5] = { 0x00, 0x00, 0x00, 0x00, 0x00 };
+	GPIO_InitTypeDef GPIO_InitStructure;
 
-    GPIO_SET_AS_OUTPUT;
-    
-    CRITICAL_SECTION_ENTER;
-    
-    DELAY_ENABLE;
-    
-    /* start sequence */
-    GPIO_OUPUT_CLEAR;    
-    DELAY_US(18000);
+	//START condition
+	GPIO_InitStructure.GPIO_Pin = dev->pin;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(dev->port, &GPIO_InitStructure);
 
-    GPIO_OUTPUT_SET;
-    DELAY_US(40);
+	dev->port->MODER |= GPIO_MODER_MODER6_0;
 
-    GPIO_SET_AS_INPUT;
+	//Put LOW for at least 18ms
+	GPIO_ResetBits(dev->port, dev->pin);
 
-    while(0 == GPIO_INPUT_GET) /* 80us on '0' */
-    {
-        #ifdef ENABLE_TIMEOUTS
-        if (--(timeout) <= 0)
-        {
-            errorCode = DHT11_TIMEOUT;
-            break;
-        }
-        #endif
-    };
-    
-    #ifdef ENABLE_TIMEOUTS
-    timeout = TIMEOUT_VALUE;
-    #endif
-    if (DHT11_OK == errorCode)
-    {
-        while(1 == GPIO_INPUT_GET) /* 80us on '1' */
-        {
-            #ifdef ENABLE_TIMEOUTS
-            if (--(timeout) <= 0)
-            {
-                errorCode = DHT11_TIMEOUT;
-                break;
-            }
-            #endif
-        };
-    }        
-    /* start sequence - end */
+	//wait 18ms
+	TIM2->CNT = 0;
+	while ((TIM2->CNT) <= 18000);
 
-    /* read sequence */
-    if (DHT11_OK == errorCode)
-    {
-        for(j=0;j<5;j++)
-        {
-            for(i=0;i<8;i++)
-            {
-                #ifdef ENABLE_TIMEOUTS
-                timeout = TIMEOUT_VALUE;
-                #endif
-                while(0 == GPIO_INPUT_GET)
-                {
-                    #ifdef ENABLE_TIMEOUTS
-                    if (--(timeout) <= 0)
-                    {
-                        errorCode = DHT11_TIMEOUT;
-                        break;
-                    }
-                    #endif
-                }; /* 50 us on 0 */
+	//Put HIGH for 20-40us
+	GPIO_SetBits(dev->port, dev->pin);
 
-                if (1 == GPIO_INPUT_GET)
-                {
-                    DELAY_US(30);
-                }
+	//wait 40us
+	TIM2->CNT = 0;
+	while ((TIM2->CNT) <= 40);
+	//End start condition
 
-                pData[j] <<= 1;
-                
-                if(1 == GPIO_INPUT_GET)
-                {
-                    DELAY_US(40); /* wait 'till 70us */
-                    pData[j] |= 1;
-                }
-                else
-                {
-                    pData[j] &= 0xfe;
-                }
-            }
-        }
-    }
-    /* read sequence - end */
-    
-    DELAY_DISABLE
-    CRITICAL_SECTION_LEAVE;
+	//io();
+	//Input mode to receive data
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_Init(dev->port, &GPIO_InitStructure);
 
-    /* checksum check */
-    if (DHT11_OK == errorCode)
-    {
-        if ((pData[0] + pData[2]) != pData[4])
-        {
-            errorCode = DHT11_WRONG_CHCKSUM;
-        }
-        else
-        {
-            errorCode = DHT11_OK;
-        }
-    }
+	//DHT11 ACK
+	//should be LOW for at least 80us
+	while (!GPIO_ReadInputDataBit(dev->port, dev->pin));
+	TIM2->CNT = 0;
+	while (!GPIO_ReadInputDataBit(dev->port, dev->pin)) {
+		if (TIM2->CNT > 100)
+			return DHT11_ERROR_TIMEOUT;
+	}
 
-    return errorCode;
+	//should be HIGH for at least 80us
+	while (GPIO_ReadInputDataBit(dev->port, dev->pin));
+	TIM2->CNT = 0;
+	while (GPIO_ReadInputDataBit(dev->port, dev->pin)) {
+		if (TIM2->CNT > 100)
+			return DHT11_ERROR_TIMEOUT;
+	}
+
+	//Read 40 bits (8*5)
+	for (j = 0; j < 5; ++j) {
+		for (i = 0; i < 8; ++i) {
+
+			//LOW for 50us
+			while (!GPIO_ReadInputDataBit(dev->port, dev->pin));
+			TIM2->CNT = 0;
+			while (!GPIO_ReadInputDataBit(dev->port, dev->pin)) {
+				if (TIM2->CNT > 60)
+					return DHT11_ERROR_TIMEOUT;
+			}
+
+			//Start counter
+			TIM_SetCounter(TIM2, 0);
+
+			//HIGH for 26-28us = 0 / 70us = 1
+			while (GPIO_ReadInputDataBit(dev->port, dev->pin));
+			while (!GPIO_ReadInputDataBit(dev->port, dev->pin)) {
+				if (TIM2->CNT > 100)
+					return DHT11_ERROR_TIMEOUT;
+			}
+
+			//Calc amount of time passed
+			temp = TIM_GetCounter(TIM2);
+
+			//shift 0
+			data[j] = data[j] << 1;
+
+			//if > 30us it's 1
+			if (temp > 40)
+				data[j] = data[j] + 1;
+		}
+	}
+
+	if (data[4] != (data[0] + data[2]))
+		return DHT11_ERROR_CHECKSUM;
+
+	dev->temparature = data[2];
+	dev->humidity = data[0];
+
+	return DHT11_SUCCESS;
 }
