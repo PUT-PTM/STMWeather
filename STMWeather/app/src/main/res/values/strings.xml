@@ -9,9 +9,11 @@
     <string name="weather_snowy">&#xf01b;</string>
     <string name="weather_thunder">&#xf01e;</string>
     <string name="weather_drizzle">&#xf01c;</string>
-    <string name="weather_thermometr">&#xf07b;</string>
+    <string name="weather_celsius">&#xf03c;</string>
     <string name="weather_humidity">&#xf07a;</string>
     <string name="weather_pressure">&#xf079;</string>
-    <string name="weather_degree">&#176;</string>
+    <string name="weather_night">&#xf097;</string>
     <string name="title_activity_statistics">StatisticsActivity</string>
+    <string name="weather_about_info">STM Weather (2016)
+    Creators: Piotr Bochra (Android Programmer) and Mateusz Nowak (Microcontroller Programmer)</string>
 </resources>

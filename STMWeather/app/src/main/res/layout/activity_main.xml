@@ -43,7 +43,7 @@
         android:textColor="#FFFFFF"
         android:text=""
         android:layout_below="@+id/weatherIcon"
-         />
+        />
 
     <TextView
         android:id="@+id/humidity"
@@ -54,7 +54,7 @@
         android:textColor="#FFFFFF"
         android:text=""
         android:layout_below="@+id/temperature"
-         />
+        />
 
     <TextView
         android:id="@+id/pressure"
@@ -65,7 +65,7 @@
         android:textColor="#FFFFFF"
         android:text=""
         android:layout_below="@+id/humidity"
-         />
+        />
 
     <Button
         android:layout_width="wrap_content"

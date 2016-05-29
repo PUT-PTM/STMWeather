@@ -39,8 +39,8 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
     public void addMeasurement(Measurement measurement){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put("Date", measurement.getDateInString());
-        values.put("Date", measurement.getDate());
+        values.put("Date", measurement.getDateInString());
+        //values.put("Date", measurement.getDate());
         values.put("Temperature",measurement.getTemperature());
         values.put("Humidity",measurement.getHumidity());
         values.put("Pressure",measurement.getPressure());
@@ -87,8 +87,8 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
         while(cursor.moveToNext()){
             Measurement measurement = new Measurement();
             measurement.setNr(cursor.getInt(0));
-            //measurement.setstringDate(cursor.getString(1));
-            measurement.setDate(cursor.getString(1));
+            measurement.setstringDate(cursor.getString(1));
+            //measurement.setDate(cursor.getString(1));
             measurement.setTemperature(cursor.getString(2));
             measurement.setHumidity(cursor.getString(3));
             measurement.setPressure(cursor.getString(4));
@@ -108,8 +108,8 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
         if(cursor!=null){
             cursor.moveToFirst();
             measurement.setNr(cursor.getInt(0));
-            //measurement.setstringDate(cursor.getString(1));
-            measurement.setDate(cursor.getString(1));
+            measurement.setstringDate(cursor.getString(1));
+            //measurement.setDate(cursor.getString(1));
             measurement.setTemperature(cursor.getString(2));
             measurement.setHumidity(cursor.getString(3));
             measurement.setPressure(cursor.getString(4));
