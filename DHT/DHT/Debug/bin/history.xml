@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -g -nostartfiles -Map=DHT.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\DHT -TC:\CooCox\CoIDE\configuration\ProgramData\DHT/arm-gcc-link.ld -g">
+      <target file="DHT.elf" lastModified="15527917073">
+         <source file="..\obj\tm_stm32f4_am2301.o" lastModified="1552737d206"/>
+         <source file="..\obj\startup_stm32f4xx.o" lastModified="15527032e72"/>
+         <source file="..\obj\main.o" lastModified="15527916e5f"/>
+         <source file="..\obj\stm32f4xx_rcc.o" lastModified="1552703b164"/>
+         <source file="..\obj\tm_stm32f4_delay.o" lastModified="1552737d374"/>
+         <source file="..\obj\stm32f4xx_gpio.o" lastModified="1552703b411"/>
+         <source file="..\obj\system_stm32f4xx.o" lastModified="1552703b62a"/>
+         <source file="..\obj\syscalls.o" lastModified="15527897f75"/>
+         <source file="..\obj\misc.o" lastModified="1552703b769"/>
+         <source file="..\obj\tm_stm32f4_gpio.o" lastModified="1552737d417"/>
+      </target>
+   </processor>
+</history>

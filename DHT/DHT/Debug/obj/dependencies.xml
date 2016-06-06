@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dependencies>
+   <includePath signature="/I..\..\..\workspace\DHT\cmsis_lib\include /I..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc /I..\..\..\workspace /I..\..\..\..\..\Users\mat95 /I..\..\..\workspace\DHT\cmsis_lib /I..\..\..\workspace\DHT /I..\..\..\workspace\DHT\cmsis_boot /I..\..\..\..\..\Users\mat95\Desktop /I..\..\..\workspace\DHT\cmsis">
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_delay.c" lastModified="15527155f19">
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_delay.h"/>
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_am2301.c" lastModified="155270e7586">
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_am2301.h"/>
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_timer_properties.h" lastModified="149f34a3a69">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\defines.h"/>
+      </source>
+      <source file="..\..\..\cmsis\core_cmInstr.h" lastModified="15526fd894d">
+      </source>
+      <source file="..\..\..\cmsis\core_cm4.h" lastModified="15526fd8556">
+         <include file="..\..\..\cmsis\core_cmInstr.h"/>
+         <include file="..\..\..\cmsis\core_cmFunc.h"/>
+         <include file="..\..\..\cmsis\core_cm4_simd.h"/>
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\defines.h" lastModified="1552737cfe9">
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\attributes.h" lastModified="149ebc5b110">
+      </source>
+      <source file="..\..\..\cmsis_boot\system_stm32f4xx.h" lastModified="15526fd816e">
+      </source>
+      <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="15527010f8d">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h" lastModified="15527038e36">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\include\misc.h" lastModified="15527031a2f">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\stm32f4xx_conf.h" lastModified="15526fdd75e">
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
+         <include file="..\..\..\cmsis_lib\include\misc.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\stm32f4xx.h" lastModified="1552701471c">
+         <include file="..\..\..\cmsis\core_cm4.h"/>
+         <include file="..\..\..\cmsis_boot\system_stm32f4xx.h"/>
+         <include file="..\..\..\cmsis_boot\stm32f4xx_conf.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\source\misc.c" lastModified="15527031a2f">
+         <include file="..\..\..\cmsis_lib\include\misc.h"/>
+      </source>
+      <source file="..\..\..\syscalls\syscalls.c" lastModified="15527895664">
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_gpio.h" lastModified="1525418439d">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\defines.h"/>
+      </source>
+      <source file="..\..\..\main.c" lastModified="15527916f42">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\defines.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_delay.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_am2301.h"/>
+      </source>
+      <source file="..\..\..\cmsis\core_cmFunc.h" lastModified="15526fd893e">
+      </source>
+      <source file="..\..\..\cmsis_lib\source\stm32f4xx_rcc.c" lastModified="15526fd816e">
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="15526fd816e">
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_gpio.c" lastModified="14de25630e8">
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_gpio.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\source\stm32f4xx_gpio.c" lastModified="15527038e36">
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_delay.h" lastModified="155271184b6">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+         <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\defines.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\attributes.h"/>
+         <include file="..\..\..\cmsis_lib\include\misc.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_timer_properties.h"/>
+      </source>
+      <source file="..\..\..\cmsis\core_cm4_simd.h" lastModified="15526fd893e">
+      </source>
+      <source file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_am2301.h" lastModified="15527121295">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\defines.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_delay.h"/>
+         <include file="..\..\..\..\..\..\..\Users\mat95\Desktop\asdasccsaasc\tm_stm32f4_gpio.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h" lastModified="15526fd815e">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
+   </includePath>
+</dependencies>
