@@ -14,13 +14,16 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import java.util.List;
+import java.util.ListIterator;
+
 
 public class StatisticsActivity extends AppCompatActivity
 {
 
-    private String[] mMonth = new String[] {
-            "Jan", "Feb" , "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug" , "Sep", "Oct", "Nov", "Dec"
+    private String[] iNumber = new String[] {
+            "1", "2", "3", "4", "5",
+            "6", "7", "8" , "9", "10"
     };
 
     @Override
@@ -30,11 +33,22 @@ public class StatisticsActivity extends AppCompatActivity
         drawChart();
     }
 
+    ZarzadcaBazy toChart = new ZarzadcaBazy(this);
+    //List<Measurement> measurements = toChart.giveAll();
+    //listIterator(measurements);
+    //int[] x_values = { 1,2,3,4,5,6,7,8,9,10 };
+    //int[] y_values = { 0,0,0,0,0,0,0,0,0,0  };
+      int[] x_values;
+      int[] y_values;
+
     private void drawChart(){
 
-        int[] x_values = { 1,2,3,4,5,6,7,8 };
-        int[] y_values = { 1000,1500,1700,2000,2500,3000,3500,3600};
-
+        ZarzadcaBazy toChart = new ZarzadcaBazy(this);
+        List<Measurement> measurements = toChart.giveAll();
+        this.listIterator(measurements);
+     /*   int[] x_values = { 1,2,3,4,5,6,7,8,9,10 };
+        int[] y_values = new int[10];
+    */
         // Creating an  XYSeries for Expense
         XYSeries expenseSeries = new XYSeries("Expense");
 
@@ -61,12 +75,12 @@ public class StatisticsActivity extends AppCompatActivity
         // Creating a XYMultipleSeriesRenderer to customize the whole chart
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
         multiRenderer.setXLabels(0);
-        multiRenderer.setChartTitle("Expense Chart");
-        multiRenderer.setXTitle("Year 2016");
-        multiRenderer.setYTitle("Amount in Dollars");
+        multiRenderer.setChartTitle("Temperature Chart");
+        multiRenderer.setXTitle("Previous 10 measurements");
+        multiRenderer.setYTitle("Temperature");
         multiRenderer.setZoomButtonsVisible(true);
         for(int i=0;i<x_values.length;i++){
-            multiRenderer.addXTextLabel(i+1, mMonth[i]);
+            multiRenderer.addXTextLabel(i+1, iNumber[i]);
         }
 
         // Adding expenseRenderer to multipleRenderer
@@ -80,6 +94,35 @@ public class StatisticsActivity extends AppCompatActivity
 
         // Adding the Line Chart to the LinearLayout
         chartContainer.addView(chart);
+    }
+/*
+    private static void listIterator(List<Measurement> list) {
+        System.out.println("#3. List iterator");
+        for (ListIterator<Measurement> it = list.listIterator(); it.hasNext();) {
+            System.out.println(it.nextIndex() + " " + it.next());
+        }
+    }
+*/
+    private void listIterator(List<Measurement> list)
+    {
+         int i = 0;
+         int amount_of_elements = list.size();
+         x_values = new int[amount_of_elements];
+         y_values = new int[amount_of_elements];
+         for (ListIterator<Measurement> it = list.listIterator(); it.hasNext();)
+         {
+            // if(i>=10)
+            //     break;
+            // else
+             //{
+                 //System.out.println(it.nextIndex() + " " + it.next());
+                 String tempTemp = it.next().getTemperature();
+                 int tempTemp2 = Integer.parseInt(tempTemp);
+                 x_values[i] = i + 1;
+                 y_values[i] = tempTemp2;
+                 i++;
+            // }
+         }
     }
 
 

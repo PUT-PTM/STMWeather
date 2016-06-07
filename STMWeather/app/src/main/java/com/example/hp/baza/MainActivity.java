@@ -40,12 +40,12 @@ public class MainActivity extends Activity {
         ZarzadcaBazy zb = new ZarzadcaBazy(this);
         //tv.setText("");
 
-        //Measurement me = new Measurement(2,"15","60","1010","false","false");
-        //zb.addMeasurement(me);
+        Measurement me = new Measurement(1,"23","61","1012","true","false");
+        zb.addMeasurement(me);
 
 
 
-        Measurement m = zb.giveMeasurement(1);
+        Measurement m = zb.giveMeasurement(zb.giveAll().size());
         updateData(m);
     }
 

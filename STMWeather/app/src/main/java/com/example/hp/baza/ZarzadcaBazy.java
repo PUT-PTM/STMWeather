@@ -83,7 +83,8 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
         List<Measurement> measurements = new LinkedList<Measurement>();
         String[] columns={"Nr","Date","Temperature","Humidity","Pressure","Sun","Rain"};
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor =db.query("Measurements",columns,null,null,null,null,null);
+        //Cursor cursor =db.query("Measurements",columns,null,null,null,null,null);
+        Cursor cursor =db.query("Measurements",columns,null,null,null,null,"Nr "+"DESC");
         while(cursor.moveToNext()){
             Measurement measurement = new Measurement();
             measurement.setNr(cursor.getInt(0));
