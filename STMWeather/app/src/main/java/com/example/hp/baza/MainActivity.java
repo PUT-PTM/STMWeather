@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         ZarzadcaBazy zb = new ZarzadcaBazy(this);
         //tv.setText("");
 
-        Measurement me = new Measurement(1,"23","61","1012","true","false");
+        Measurement me = new Measurement(1,"28","60","1013","false","false");
         zb.addMeasurement(me);
 
 

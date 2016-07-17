@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
@@ -26,11 +29,16 @@ public class StatisticsActivity extends AppCompatActivity
             "6", "7", "8" , "9", "10"
     };
 
+    private RadioGroup radioMeasurementGroup;
+    private RadioButton radioMeasurementButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-        drawChart();
+        radioMeasurementGroup=(RadioGroup)findViewById(R.id.radioGroup);
+        radioMeasurementButton=(RadioButton)findViewById(R.id.radioButton);
+        drawChart(radioMeasurementButton);
     }
 
     ZarzadcaBazy toChart = new ZarzadcaBazy(this);
@@ -41,11 +49,13 @@ public class StatisticsActivity extends AppCompatActivity
       int[] x_values;
       int[] y_values;
 
-    private void drawChart(){
+    private void drawChart(RadioButton rb)
+    {
 
         ZarzadcaBazy toChart = new ZarzadcaBazy(this);
         List<Measurement> measurements = toChart.giveAll();
-        this.listIterator(measurements);
+        this.listIterator(measurements,rb);
+        //this.listIterator(measurements,rb);
      /*   int[] x_values = { 1,2,3,4,5,6,7,8,9,10 };
         int[] y_values = new int[10];
     */
@@ -56,6 +66,10 @@ public class StatisticsActivity extends AppCompatActivity
         for(int i=0;i<x_values.length;i++){
             expenseSeries.add(x_values[i], y_values[i]);
 
+            if(i>9)
+            {
+                break;
+            }
         }
 
         // Creating a dataset to hold each series
@@ -65,7 +79,7 @@ public class StatisticsActivity extends AppCompatActivity
 
         // Creating XYSeriesRenderer to customize expenseSeries
         XYSeriesRenderer renderer = new XYSeriesRenderer();
-        renderer.setColor(Color.RED);
+        renderer.setColor(Color.BLUE);
         renderer.setPointStyle(PointStyle.CIRCLE);
         renderer.setFillPoints(true);
         renderer.setLineWidth(3);
@@ -79,7 +93,9 @@ public class StatisticsActivity extends AppCompatActivity
         multiRenderer.setXTitle("Previous 10 measurements");
         multiRenderer.setYTitle("Temperature");
         multiRenderer.setZoomButtonsVisible(true);
-        for(int i=0;i<x_values.length;i++){
+        multiRenderer.setShowGrid(true);
+        for(int i=0;i<x_values.length;i++)
+        {
             multiRenderer.addXTextLabel(i+1, iNumber[i]);
         }
 
@@ -93,7 +109,7 @@ public class StatisticsActivity extends AppCompatActivity
         View chart = ChartFactory.getLineChartView(getBaseContext(), xyMultipleSeriesDataset, multiRenderer);
 
         // Adding the Line Chart to the LinearLayout
-        chartContainer.addView(chart);
+        chartContainer.addView(chart,0);
     }
 /*
     private static void listIterator(List<Measurement> list) {
@@ -103,7 +119,7 @@ public class StatisticsActivity extends AppCompatActivity
         }
     }
 */
-    private void listIterator(List<Measurement> list)
+/*    private void listIterator(List<Measurement> list)
     {
          int i = 0;
          int amount_of_elements = list.size();
@@ -111,7 +127,7 @@ public class StatisticsActivity extends AppCompatActivity
          y_values = new int[amount_of_elements];
          for (ListIterator<Measurement> it = list.listIterator(); it.hasNext();)
          {
-            // if(i>=10)
+            // if(i>=9)
             //     break;
             // else
              //{
@@ -124,12 +140,76 @@ public class StatisticsActivity extends AppCompatActivity
             // }
          }
     }
+*/
 
+    private void listIterator(List<Measurement> list, RadioButton rb)
+    {
+        int i = 0;
+        int x = R.id.radioButton3;
+        int amount_of_elements = list.size();
+        x_values = new int[amount_of_elements];
+        y_values = new int[amount_of_elements];
+
+        if(x==R.id.radioButton)
+        {
+            for (ListIterator<Measurement> it = list.listIterator(); it.hasNext(); )
+            {
+
+                     System.out.println(it.nextIndex() + " " + it.next());
+                     String tempTemp = it.next().getTemperature();
+                     int tempTemp2 = Integer.parseInt(tempTemp);
+                     x_values[i] = i + 1;
+                     y_values[i] = tempTemp2;
+                     i++;
+
+            }
+        }
+
+        else if(x==R.id.radioButton2)
+        {
+            for (ListIterator<Measurement> it = list.listIterator(); it.hasNext(); )
+            {
+
+                System.out.println(it.nextIndex() + " " + it.next());
+                String tempTemp = it.next().getHumidity();
+                int tempTemp2 = Integer.parseInt(tempTemp);
+                x_values[i] = i + 1;
+                y_values[i] = tempTemp2;
+                i++;
+
+            }
+        }
+
+        else if(x==R.id.radioButton3)
+        {
+            for (ListIterator<Measurement> it = list.listIterator(); it.hasNext(); )
+            {
+
+                System.out.println(it.nextIndex() + " " + it.next());
+                String tempTemp = it.next().getPressure();
+                int tempTemp2 = Integer.parseInt(tempTemp);
+                x_values[i] = i + 1;
+                y_values[i] = tempTemp2;
+                i++;
+
+            }
+        }
+
+    }
 
     public void returnToMainActivity(View view)
     {
         Intent i = new Intent(this,MainActivity.class);
         startActivity(i);
+    }
+
+    public void refresh(View view)
+    {
+        int selectedId=radioMeasurementGroup.getCheckedRadioButtonId();
+        radioMeasurementButton=(RadioButton)findViewById(selectedId);
+        drawChart(radioMeasurementButton);
+        //listIterator(list, radioMeasurementButton);
+        //Toast.makeText(StatisticsActivity.this,radioMeasurementButton.getText(), Toast.LENGTH_SHORT).show();
     }
 
 }

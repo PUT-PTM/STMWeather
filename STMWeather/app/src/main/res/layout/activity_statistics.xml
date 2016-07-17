@@ -17,6 +17,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="REFRESH"
+        android:id="@+id/refresh"
+        android:onClick="refresh"
+        android:layout_above="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="BACK"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
@@ -27,6 +35,7 @@
         android:layout_width="250dp"
         android:layout_height="162dp"
         android:weightSum="1"
+        android:id="@+id/radioGroup"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true">
 
@@ -36,6 +45,7 @@
         android:layout_height="wrap_content"
         android:text="Temperature"
         android:id="@+id/radioButton"
+        android:buttonTint="#5555FF"
         android:checked="true"
         android:layout_below="@+id/chart_container"
         android:layout_alignParentStart="true" />
@@ -45,7 +55,8 @@
     android:layout_height="wrap_content"
     android:text="Humidity"
     android:id="@+id/radioButton2"
-    android:checked="false"
+        android:buttonTint="#5555FF"
+        android:checked="false"
         android:layout_alignTop="@+id/radioButton"
         android:layout_centerHorizontal="true" />
 
@@ -54,7 +65,8 @@
     android:layout_height="wrap_content"
     android:text="Pressure"
     android:id="@+id/radioButton3"
-    android:checked="false"
+        android:buttonTint="#5555FF"
+        android:checked="false"
         android:layout_alignTop="@+id/radioButton2"
         android:layout_alignParentEnd="true" />
 
@@ -63,6 +75,7 @@
     android:layout_height="wrap_content"
     android:text="Sun"
     android:id="@+id/radioButton4"
+        android:buttonTint="#5555FF"
         android:checked="false"
         android:layout_below="@+id/radioButton2"
         android:layout_alignStart="@+id/radioButton2" />
@@ -71,12 +84,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Rain"
-    android:id="@+id/radioButton5"
+        android:buttonTint="#5555FF"
+        android:id="@+id/radioButton5"
     android:checked="false"
         android:layout_weight="0.38"
         android:layout_below="@+id/radioButton3"
         android:layout_alignStart="@+id/radioButton3" />
 
     </RadioGroup>
+
 
 </RelativeLayout>
