@@ -25,7 +25,6 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
                         "Date text," +
                         "Temperature text," +
                         "Humidity text," +
-                        "Pressure text," +
                         "Sun text," +
                         "Rain text);" +
                         "");
@@ -43,7 +42,6 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
         //values.put("Date", measurement.getDate());
         values.put("Temperature",measurement.getTemperature());
         values.put("Humidity",measurement.getHumidity());
-        values.put("Pressure",measurement.getPressure());
         values.put("Sun",measurement.getSun());
         values.put("Rain",measurement.getRain());
         db.insertOrThrow("Measurements", null, values);
@@ -81,7 +79,7 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
 */
     public List<Measurement> giveAll(){
         List<Measurement> measurements = new LinkedList<Measurement>();
-        String[] columns={"Nr","Date","Temperature","Humidity","Pressure","Sun","Rain"};
+        String[] columns={"Nr","Date","Temperature","Humidity","Sun","Rain"};
         SQLiteDatabase db = getReadableDatabase();
         //Cursor cursor =db.query("Measurements",columns,null,null,null,null,null);
         Cursor cursor =db.query("Measurements",columns,null,null,null,null,"Nr "+"DESC");
@@ -92,9 +90,8 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
             //measurement.setDate(cursor.getString(1));
             measurement.setTemperature(cursor.getString(2));
             measurement.setHumidity(cursor.getString(3));
-            measurement.setPressure(cursor.getString(4));
-            measurement.setSun(cursor.getString(5));
-            measurement.setRain(cursor.getString(6));
+            measurement.setSun(cursor.getString(4));
+            measurement.setRain(cursor.getString(5));
             measurements.add(measurement);
         }
         return measurements;
@@ -103,7 +100,7 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
     public Measurement giveMeasurement(int nr){
         Measurement measurement=new Measurement();
         SQLiteDatabase db = getReadableDatabase();
-        String[] columns={"Nr","Date","Temperature","Humidity","Pressure","Sun","Rain"};
+        String[] columns={"Nr","Date","Temperature","Humidity","Sun","Rain"};
         String args[]={nr+""};
         Cursor cursor=db.query("Measurements",columns," Nr=?",args,null,null,null,null);
         if(cursor!=null){
@@ -113,9 +110,8 @@ public class ZarzadcaBazy extends SQLiteOpenHelper{
             //measurement.setDate(cursor.getString(1));
             measurement.setTemperature(cursor.getString(2));
             measurement.setHumidity(cursor.getString(3));
-            measurement.setPressure(cursor.getString(4));
-            measurement.setSun(cursor.getString(5));
-            measurement.setRain(cursor.getString(6));
+            measurement.setSun(cursor.getString(4));
+            measurement.setRain(cursor.getString(5));
         }
         return measurement;
     }

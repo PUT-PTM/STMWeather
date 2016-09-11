@@ -31,7 +31,7 @@
         android:onClick="returnToMainActivity"
         android:layout_alignParentStart="true" />
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    <!--<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="250dp"
         android:layout_height="162dp"
         android:weightSum="1"
@@ -91,7 +91,7 @@
         android:layout_below="@+id/radioButton3"
         android:layout_alignStart="@+id/radioButton3" />
 
-    </RadioGroup>
+    </RadioGroup>-->
 
 
 </RelativeLayout>

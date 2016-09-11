@@ -6,13 +6,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Measurement {
+public class Measurement
+{
     private int nr;
     private Date date;
     //private String date;
     private String temperature;
     private String humidity;
-    private String pressure;
     private String sun;
     private String rain;
     private String stringDate;
@@ -20,14 +20,13 @@ public class Measurement {
 
     public Measurement(){}
 
-    public Measurement(int nr, String temperature, String humidity, String pressure, String sun, String rain)
+    public Measurement(int nr, String temperature, String humidity, String sun, String rain)
     {
         this.nr=nr;
         this.date=new Date();
         //this.date=date;
         this.temperature=temperature;
         this.humidity=humidity;
-        this.pressure=pressure;
         this.sun=sun;
         this.rain=rain;
     }
@@ -41,15 +40,7 @@ public class Measurement {
     public String getTemperature() {return temperature;}
     public void setTemperature(String temperature) { this.temperature = temperature;}
     public String getHumidity() { return humidity;}
-    public void setHumidity(String humidity) {
-        this.humidity = humidity;
-    }
-    public String getPressure() {
-        return pressure;
-    }
-    public void setPressure(String pressure) {
-        this.pressure = pressure;
-    }
+    public void setHumidity(String humidity) { this.humidity = humidity;}
     public String getSun() {return sun;}
     public void setSun(String sun) {
         this.sun = sun;

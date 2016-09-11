@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
         TextView tv_date = (TextView) findViewById(R.id.date);
         TextView tv_temperature = (TextView) findViewById(R.id.temperature);
         TextView tv_humidity = (TextView) findViewById(R.id.humidity);
-        TextView tv_pressure = (TextView) findViewById(R.id.pressure);
         Typeface weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weather.ttf");
         tv_icon.setTypeface(weatherFont);
         Button b_update = (Button) findViewById(R.id.update);
@@ -40,7 +39,7 @@ public class MainActivity extends Activity {
         ZarzadcaBazy zb = new ZarzadcaBazy(this);
         //tv.setText("");
 
-        Measurement me = new Measurement(1,"28","60","1013","false","false");
+        Measurement me = new Measurement(1,"18","60","true","false");
         zb.addMeasurement(me);
 
 
@@ -54,7 +53,6 @@ public class MainActivity extends Activity {
         TextView tv_date = (TextView) findViewById(R.id.date);
         TextView tv_temperature = (TextView) findViewById(R.id.temperature);
         TextView tv_humidity = (TextView) findViewById(R.id.humidity);
-        TextView tv_pressure = (TextView) findViewById(R.id.pressure);
         //Button b_update=(Button)findViewById(R.id.update);
 
         tv_icon.setText(setIcon(m));
@@ -62,7 +60,6 @@ public class MainActivity extends Activity {
         //tv_date.setText(m.getDate());
         tv_temperature.setText(m.getTemperature());
         tv_humidity.setText(m.getHumidity());
-        tv_pressure.setText(m.getPressure());
 
         Toast.makeText(getApplicationContext(), "Pomiar wykonany!", Toast.LENGTH_SHORT).show();
     }
@@ -141,7 +138,6 @@ public class MainActivity extends Activity {
         String DateAndHour = m.getstringDate();
         int Hour = Integer.parseInt(m.getstringDate().substring(11, 13));
         int Humidity = Integer.parseInt(m.getHumidity());
-        int Pressure = Integer.parseInt(m.getPressure());
         int Temperature = Integer.parseInt(m.getTemperature());
         String Describe = "";
 
@@ -149,7 +145,7 @@ public class MainActivity extends Activity {
         {
             Describe = getString(R.string.weather_sunny);
         }
-        else if(Temperature > 4 && Rain.equals("true") && Pressure >= 1000 && (Hour < 17 && Hour > 7))
+        else if(Temperature > 4 && Rain.equals("true") /*&& Pressure >= 1000*/ && (Hour < 17 && Hour > 7))
         {
             Describe = getString(R.string.weather_rainy);
         }
@@ -157,7 +153,7 @@ public class MainActivity extends Activity {
         {
             Describe = getString(R.string.weather_snowy);
         }
-        else if(Temperature > 20 && Rain.equals("true") && Pressure < 1000 && Humidity > 55 && (Hour < 17 && Hour > 7))
+        else if(Temperature > 20 && Rain.equals("true") && Humidity > 55 && (Hour < 17 && Hour > 7))
         {
             Describe = getString(R.string.weather_thunder);
         }
