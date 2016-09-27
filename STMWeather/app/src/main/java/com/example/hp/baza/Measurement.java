@@ -10,7 +10,6 @@ public class Measurement
 {
     private int nr;
     private Date date;
-    //private String date;
     private String temperature;
     private String humidity;
     private String sun;
@@ -24,7 +23,6 @@ public class Measurement
     {
         this.nr=nr;
         this.date=new Date();
-        //this.date=date;
         this.temperature=temperature;
         this.humidity=humidity;
         this.sun=sun;

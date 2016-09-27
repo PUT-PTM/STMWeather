@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Baza</string>
+    <string name="app_name">STMWeather</string>
     <string name="action_settings">Settings</string>
     <string name="weather_sunny">&#xf00d;</string>
     <string name="weather_clear_night">&#xf02e;</string>
@@ -13,6 +13,7 @@
     <string name="weather_humidity">&#xf07a;</string>
     <string name="weather_pressure">&#xf079;</string>
     <string name="weather_night">&#xf097;</string>
+    <string name="default_MAC">20:14:07:01:15:79</string>
     <string name="title_activity_statistics">StatisticsActivity</string>
     <string name="weather_about_info">STM Weather (2016)
     Creators: Piotr Bochra (Android Programmer) and Mateusz Nowak (Microcontroller Programmer)</string>
