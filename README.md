@@ -35,9 +35,9 @@ App receives the data, stores it in the database and displays it with appropriat
 +	      GND -> GND
 
 ##License##
- +This project can be used under MIT license
+ This project can be used under MIT license
  
- ##Credits##
+##Credits##
  <ul>
  <li>Piotr Bochra</li>
  <li>Mateusz Nowak</li>
