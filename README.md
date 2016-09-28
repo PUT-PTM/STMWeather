@@ -16,7 +16,8 @@ App receives the data, stores it in the database and displays it with appropriat
  +
 ##Pins connection ##
  
-+HC-06   PC10 -> line RX 
++HC-06   
++        PC10 -> line RX 
 +	       PC11 -> line TX 
 +        VCC -> 3V
 +	       GND -> GND 
