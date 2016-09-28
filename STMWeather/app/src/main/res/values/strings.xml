@@ -13,6 +13,10 @@
     <string name="weather_humidity">&#xf07a;</string>
     <string name="weather_pressure">&#xf079;</string>
     <string name="weather_night">&#xf097;</string>
+    <string name="button_update">&#xf021;</string>
+    <string name="button_statistics">&#xf080;</string>
+    <string name="button_about">&#xf129;</string>
+    <string name="button_connect">&#xf294;</string>
     <string name="default_MAC">20:14:07:01:15:79</string>
     <string name="title_activity_statistics">StatisticsActivity</string>
     <string name="weather_about_info">STM Weather (2016)

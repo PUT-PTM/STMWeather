@@ -36,7 +36,7 @@ public class MainActivity extends Activity
     TextView t;
     TextView m;
     Button s;
-    Button sender;
+    Button connectTest;
     int x = 0;
     int measurementNr = 0;
     byte[] buffer = new byte[1024];
@@ -48,6 +48,7 @@ public class MainActivity extends Activity
     ZarzadcaBazy zb = new ZarzadcaBazy(this);
     Measurement me = new Measurement(1, Integer.toString(measurementValue[0]), Integer.toString(measurementValue[1]),
             intToBooleanString(measurementValue[2]), intToBooleanString(measurementValue[3]));
+    Measurement theNewestMeasurement;
     Handler h;
     public String convertBuffer;
     private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
@@ -68,16 +69,30 @@ public class MainActivity extends Activity
         TextView tv_humidity = (TextView) findViewById(R.id.humidity);
         Typeface weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weather.ttf");
         tv_icon.setTypeface(weatherFont);
+
         Button b_update = (Button) findViewById(R.id.update);
         Button b_statistics = (Button) findViewById(R.id.goToStatistics);
         Button b_info = (Button) findViewById(R.id.about_info);
         s = (Button)findViewById(R.id.btSwitch);
-        sender = (Button)findViewById(R.id.btSender);
+        connectTest = (Button)findViewById(R.id.connectTest);
+        Typeface buttonFont = Typeface.createFromAsset(getAssets(), "fonts/FontAwesome.otf");
+        b_update.setTypeface(buttonFont);
+        b_statistics.setTypeface(buttonFont);
+        b_info.setTypeface(buttonFont);
+        s.setTypeface(buttonFont);
+
         t = (TextView)findViewById(R.id.bluetoothStatus);
         //m = (TextView)findViewById(R.id.messageStatus);
 
-
-
+        if(theNewestMeasurement == null)
+        {
+            tv_temperature.setText("Make a new measurement");
+        }
+        else
+        {
+            theNewestMeasurement = zb.giveMeasurement(zb.giveAll().size());
+            updateData(theNewestMeasurement);
+        }
 
 
         //connectBtn();
@@ -125,6 +140,8 @@ public class MainActivity extends Activity
 
                     Measurement m = zb.giveMeasurement(zb.giveAll().size());
                     updateData(m);
+
+                    Toast.makeText(getApplicationContext(), "Pomiar wykonany!", Toast.LENGTH_SHORT).show();
                 }
 
                 if(measurementNr < 3) measurementNr++;
@@ -135,11 +152,9 @@ public class MainActivity extends Activity
 
 
 
-
-
-        sender.setOnClickListener(new View.OnClickListener() {
+        connectTest.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                s.setEnabled(false);
+                connectTest.setEnabled(false);
                 mConnectedThread.write("1");    // Send string via Bluetooth
                 //Toast.makeText(getBaseContext(), "Try LED On", Toast.LENGTH_SHORT).show();
             }
@@ -155,23 +170,6 @@ public class MainActivity extends Activity
 
     }
 
-    /*public void sendRequest(View view)
-    {
-        char message = '1';
-        if(t.getText() == "Connected")
-        {
-            try
-            {
-                mConnectedThread.mmOutStream.write(message);
-                Log.d("BT","Sent!");
-                Log.d("BT","Sent: " + mConnectedThread.mmOutStream);
-            }
-            catch(IOException e)
-            {
-                Log.d("BT","PROBLEM");
-            }
-        }
-    }*/
 
     public String intToBooleanString(int booleanInt)
     {
@@ -196,10 +194,12 @@ public class MainActivity extends Activity
         tv_icon.setText(setIcon(m));
         tv_date.setText(m.getstringDate());
         //tv_date.setText(m.getDate());
-        tv_temperature.setText(m.getTemperature());
-        tv_humidity.setText(m.getHumidity());
+        //String temperatureIcon = getString(R.string.weather_celsius);
+        //String humidityIcon = getString(R.string.weather_humidity);
+        tv_temperature.setText("Temperature: " + m.getTemperature());
+        tv_humidity.setText("Humidity:       " + m.getHumidity());
 
-        Toast.makeText(getApplicationContext(), "Pomiar wykonany!", Toast.LENGTH_SHORT).show();
+
     }
 
     public void goToStatistics(View view)
@@ -235,9 +235,6 @@ public class MainActivity extends Activity
     }
 
 
-
-
-
     public boolean runBluetooth()
     {
         boolean stan = true;
@@ -269,21 +266,20 @@ public class MainActivity extends Activity
         Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
         if (pairedDevices.size() > 0)
         {
-            // Znaleziono sparowane urzadzenia
+            // Paired devices found
             for (BluetoothDevice device : pairedDevices)
             {
                 if(device.getAddress().equals("20:14:07:01:15:79"))
                 {
                     Log.d("INFO","Sparowano "+device.getAddress());
-                    // Wsrod znalezionych sparowanych urzadzen jest nasz modul bluetooth HC-06
+                    // Our HC-06 is paired
                     return btAdapter.getRemoteDevice(device.getAddress());
-                    // Zwrocono uchwyt do znalezionego stacji w celu pozniejszego polaczenia z nia
+                    // This module is returned
                 }
             }
         }
-        return null;// W przypadku braku dostepnosci stacji
+        return null;// If our station not found
     }
-
     public boolean connectToWeatherStation()
     {
         boolean stan = false;
@@ -299,9 +295,9 @@ public class MainActivity extends Activity
 
                 if(btSocket.isConnected())
                 {
-                    // Udało się nawiązać połączenie ze stacja
+                    // Connected to the weather station
                     stan = true;
-                    Log.d("INFO","Polaczono");
+                    Log.d("INFO","Connected");
                     mConnectedThread = new ConnectedThread(btSocket);
                     mConnectedThread.start();
                 }
@@ -309,8 +305,8 @@ public class MainActivity extends Activity
             catch(IOException e)
             {
                 Log.d("INFO",e.getMessage());
-                // Nie udało nam się nawiązać połączenia ze stacja
-                Log.d("INFO","Nie polaczono");
+                // Not connected to weather station
+                Log.d("INFO","Not connected");
             }
         }
         return stan;
@@ -325,20 +321,20 @@ public class MainActivity extends Activity
 
         if (btAdapter != null)
         {
-            // Urządzenie wspiera Bluetooth
-            Log.d("INFO","ba nie jest null");
+            // The device supports Bluetooth
+            Log.d("INFO","ba isn't null");
             if (t != null)
             {
-                Log.d("INFO","t istnieje");
-                // Istnieje na formie kontrolka wyswietlajaca log
+                Log.d("INFO","t exists");
+                // Controller exists
                 if(runBluetooth() == true)
                 {
                     Log.d("INFO","bluetooth = " + runBluetooth());
-                    // Udało się włączyć moduł bluetooth
+                    // HC-06 launched
                     weatherStation = findWeatherStation();
                     if(weatherStation != null && connectToWeatherStation() == true)
                     {
-                        // Znaleziono stacje na liscie sparowanych urzadzen i udala sie proba nawiazania z nia polaczenia
+                        // Found a paired device and connected to it
                         t.setText("Connected");
                     }
                     else
@@ -386,7 +382,7 @@ public class MainActivity extends Activity
         int Temperature = Integer.parseInt(m.getTemperature());
         String Describe = "";
 
-        if(Sun.equals("true") && Rain.equals("false") && (Hour < 17 && Hour > 7))
+        if(Sun.equals("true") && Rain.equals("false") && (Hour <= 17 && Hour > 7))
         {
             Describe = getString(R.string.weather_sunny);
         }

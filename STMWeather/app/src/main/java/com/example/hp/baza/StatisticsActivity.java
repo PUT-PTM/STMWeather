@@ -300,7 +300,7 @@ public class StatisticsActivity extends Activity {
 
 
         XYSeriesRenderer rainRenderer = new XYSeriesRenderer();
-        rainRenderer.setColor(Color.BLACK);
+        rainRenderer.setColor(Color.GREEN);
         rainRenderer.setPointStyle(PointStyle.SQUARE);
         rainRenderer.setFillPoints(true);
         rainRenderer.setLineWidth(1);
@@ -313,6 +313,7 @@ public class StatisticsActivity extends Activity {
         multiRenderer.setXLabels(0);
         multiRenderer.setChartTitle("Measurements Chart");
         multiRenderer.setXTitle("Previous 10 Measurements");
+        multiRenderer.setBackgroundColor(Color.BLACK);
         //multiRenderer.setYTitle("");
         multiRenderer.setZoomButtonsVisible(true);
         multiRenderer.setBarSpacing(4);
@@ -401,8 +402,8 @@ public class StatisticsActivity extends Activity {
             x[i] = i;
             y1[i] = tempTemp2;
             y2[i] = humiHumi2;
-            y3[i] = sunSun2 * 1000;
-            y4[i] = rainRain2 * 1000;
+            y3[i] = sunSun2 * 100;
+            y4[i] = rainRain2 * 100;
             i++;
             // }
         }
