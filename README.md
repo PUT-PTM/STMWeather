@@ -1,5 +1,5 @@
 # STMWeather
-+##Overview##
+##Overview##
 +STMWeather is a project of the weather station. It includes few sensors programmed with STM32F4VG Discovery Microcontroller and Android app. 
 +STMWeather can measure temperature and humidity (DHT11), rain presence(YL-83), light (LM393). 
 +All the data is send via bluetooth (HC-06) to the phone with Android system and app installed.
