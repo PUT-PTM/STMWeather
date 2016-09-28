@@ -5,7 +5,7 @@
 +All the data is send via bluetooth (HC-06) to the phone with Android system and app installed.
 +App receives the data, stores it in the database and displays it with appropriate icons.
 
-+##Tools##
+##Tools##
  +<ul>
  +  <li>CooCox CoIDE</li>
  +  <li>STMStudio</li>
@@ -14,7 +14,7 @@
  +</ul>
  
  +
- +##Pins connection ##
+ ##Pins connection ##
  
 +HC-06   PC10 -> line RX 
 +	       PC11 -> line TX 
@@ -34,10 +34,10 @@
 +	      VCC -> 3V
 +	      GND -> GND
 
-+##License##
+##License##
  +This project can be used under MIT license
  
- +##Credits##
+ ##Credits##
  +<ul>
  +<li>Piotr Bochra</li>
  +<li>Mateusz Nowak</li>
