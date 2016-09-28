@@ -6,12 +6,12 @@ All the data is send via bluetooth (HC-06) to the phone with Android system and 
 App receives the data, stores it in the database and displays it with appropriate icons.
 
 ##Tools##
- +<ul>
+ <ul>
  +  <li>CooCox CoIDE</li>
  +  <li>STMStudio</li>
  +  <li>Realterm</li>
  +  <li>Android Studio</li>
- +</ul>
+ </ul>
  
  +
 ##Pins connection ##
