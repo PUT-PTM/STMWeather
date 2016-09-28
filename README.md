@@ -7,10 +7,10 @@ App receives the data, stores it in the database and displays it with appropriat
 
 ##Tools##
  <ul>
- +  <li>CooCox CoIDE</li>
+   <li>CooCox CoIDE</li>
    <li>STMStudio</li>
- +  <li>Realterm</li>
- +  <li>Android Studio</li>
+   <li>Realterm</li>
+   <li>Android Studio</li>
  </ul>
  
 
