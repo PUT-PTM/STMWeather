@@ -16,21 +16,23 @@ App receives the data, stores it in the database and displays it with appropriat
  +
 ##Pins connection ##
  
-+HC-06   
+HC-06   
 +        PC10 -> line RX 
 +	       PC11 -> line TX 
 +        VCC -> 3V
 +	       GND -> GND 
 
-+YL-83 	AO -> PA4 
+YL-83 	
++       AO -> PA4 
 +	      VCC -> 3V 
 +	      GND -> GND 
 
-+LM393  OUT -> PA2 
+LM393  
++       OUT -> PA2 
 +	      VCC -> 5V 
 +       GND -> GND 
 
-+DHT11	Using breadboard (it needs to connect resistor 5km Ohm between VCC and DATA)
+DHT11	Using breadboard (it needs to connect resistor 5km Ohm between VCC and DATA)
 +	      DATA -> PA1
 +	      VCC -> 3V
 +	      GND -> GND
